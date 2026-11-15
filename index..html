@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abandoned But Not Forgotten | Team Orion X</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Friendly Rounded Display & Body Fonts for School Students -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --font-display: 'Fredoka', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #ffffff;
+      color: #1e293b;
+      transition: background-color 0.7s ease, color 0.5s ease;
+    }
+
+    body.space-mode {
+      background-color: #070b19;
+      color: #f8fafc;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: var(--font-display);
+    }
+
+    /* Smooth screen transitions */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      width: 100%;
+      animation: fadeInScreen 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeInScreen {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Floating animation for landing rocket & clouds */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(1.5deg); }
+    }
+
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(10px); }
+    }
+
+    .animate-float {
+      animation: floatSlow 3.6s ease-in-out infinite;
+    }
+
+    .animate-float-reverse {
+      animation: floatReverse 4.2s ease-in-out infinite;
+    }
+
+    /* Planet Entrance Animations for Screen 2 (Opposite Sides & Directions) */
+    @keyframes riseFromBottomOpposite {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0.75);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(18px) scale(1);
+      }
+    }
+
+    @keyframes dropFromTopOpposite {
+      0% {
+        opacity: 0;
+        transform: translateY(-100vh) scale(0.75);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-18px) scale(1);
+      }
+    }
+
+    .mars-entrance {
+      animation: riseFromBottomOpposite 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .moon-entrance {
+      animation: dropFromTopOpposite 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Subtle twinkling stars for minimalist space background */
+    .star-dot {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.9); }
+      50% { opacity: 0.95; transform: scale(1.25); }
+    }
+
+    /* Playful 3D-style Game Buttons */
+    .btn-playful {
+      font-family: var(--font-display);
+      transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn-playful:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .btn-playful:active {
+      transform: translateY(2px) scale(0.97);
+    }
+
+    /* Rocket Launch Shake & Liftoff Animations */
+    @keyframes padShake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-3px, 1px) rotate(-0.6deg); }
+      40% { transform: translate(3px, -1px) rotate(0.6deg); }
+      60% { transform: translate(-2px, -1px) rotate(-0.4deg); }
+      80% { transform: translate(2px, 1px) rotate(0.4deg); }
+    }
+
+    .rocket-shaking {
+      animation: padShake 0.16s infinite;
+    }
+
+    @keyframes rocketLiftoff {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      20% {
+        transform: translateY(-18px) scale(1.01);
+      }
+      100% {
+        transform: translateY(-560px) scale(0.75);
+        opacity: 0;
+      }
+    }
+
+    .rocket-blasting-off {
+      animation: rocketLiftoff 4.2s cubic-bezier(0.45, 0.02, 0.85, 0.35) forwards;
+    }
+
+    @keyframes flameFlicker {
+      0%, 100% { transform: scaleY(1) scaleX(1); }
+      50% { transform: scaleY(1.22) scaleX(0.9); }
+    }
+
+    .flame-active {
+      transform-origin: top center;
+      animation: flameFlicker 0.14s infinite;
+    }
+
+    /* Crossword / Letter Tile Inputs */
+    .letter-tile {
+      width: 48px;
+      height: 54px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 14px;
+      border: 3px solid #38bdf8;
+      background: #0f172a;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .letter-tile:focus {
+      outline: none;
+      border-color: #facc15;
+      box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.3);
+      transform: scale(1.06);
+    }
+
+    .letter-tile.locked {
+      background: #1e293b;
+      border-color: #64748b;
+      color: #38bdf8;
+    }
+
+    /* Confetti animation */
+    @keyframes confettiFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .confetti-piece {
+      position: fixed;
+      top: -10px;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: confettiFall 2.8s linear forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Floating Controls (Sound Toggle & Star Counter visible in Space Mode) -->
+  <header id="top-hud" class="fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between pointer-events-none">
+    <!-- Team Orion X Badge -->
+    <div id="team-badge" class="pointer-events-auto flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/85 text-white border border-slate-700/70 backdrop-blur-md shadow-md text-xs sm:text-sm font-bold">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+      <span>Team Orion X • NASA Space Apps</span>
+    </div>
+
+    <div class="pointer-events-auto flex items-center gap-2.5">
+      <!-- Star Counter (Shown across Mars & Apollo Missions) -->
+      <div id="star-hud" class="hidden items-center gap-1.5 px-4 py-1.5 rounded-full bg-amber-400/20 border-2 border-amber-400 text-amber-300 backdrop-blur-md font-display font-bold text-sm sm:text-base shadow-lg">
+        <span>⭐ Stars:</span>
+        <span id="star-count-display">0</span>
+        <span>/ 4</span>
+      </div>
+
+      <!-- Sound Effects Toggle -->
+      <button id="sound-toggle" onclick="toggleSound()" aria-label="Toggle sound effects"
+        class="p-2.5 rounded-full bg-slate-800/85 hover:bg-slate-700 text-white border border-slate-600 shadow-md transition cursor-pointer text-sm font-bold flex items-center gap-1.5">
+        <span id="sound-icon">🔊</span>
+        <span class="hidden sm:inline text-xs" id="sound-label">Sound On</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Minimalist Space Background Layer (Active from Screen 2 onward) -->
+  <div id="space-starfield" class="fixed inset-0 pointer-events-none z-0 hidden overflow-hidden"></div>
+
+  <!-- =====================================================================
+       SCREEN 1: LANDING PAGE (Clean White Background + Dark Blue Title + New Button Above Cartoon Rocket)
+  ====================================================================== -->
+  <section id="screen-1" class="screen active flex-col items-center justify-center relative px-4 py-16 bg-white text-slate-900 overflow-hidden select-none">
+    <!-- Subtle Decorative Pastel Clouds / Planets on Crisp White Canvas -->
+    <div class="absolute top-14 left-6 sm:left-16 w-20 h-20 rounded-full bg-sky-100/80 blur-sm animate-float-reverse pointer-events-none"></div>
+    <div class="absolute bottom-16 right-8 sm:right-20 w-28 h-28 rounded-full bg-indigo-100/80 blur-sm animate-float pointer-events-none"></div>
+    <div class="absolute top-28 right-10 sm:right-24 w-12 h-12 rounded-full bg-amber-100/90 animate-float pointer-events-none"></div>
+
+    <!-- Main Centered Content -->
+    <div class="relative z-10 max-w-3xl w-full flex flex-col items-center text-center">
+      <span class="px-4 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-900 font-bold text-xs sm:text-sm tracking-wide uppercase mb-3 shadow-sm">
+        🚀 Interactive Space Storytelling
+      </span>
+
+      <!-- Dark Blue Title (#0f2966) -->
+      <h1 class="text-4xl sm:text-6xl font-bold tracking-tight leading-tight mb-3" style="color: #0f2966;">
+        Abandoned But Not Forgotten
+      </h1>
+
+      <p class="text-slate-600 text-base sm:text-xl max-w-xl mb-6 font-semibold">
+        Join <strong style="color: #0f2966;">Mars</strong> and <strong style="color: #0f2966;">the Moon</strong> as they tell the true stories of brave space explorers left behind on other worlds!
+      </p>
+
+      <!-- "Start the Mission" Button Placed Directly ABOVE the Cartoon Rocket with Vibrant Teal & Gold Cosmic Styling -->
+      <button onclick="goToSpaceHub()"
+        class="btn-playful z-20 mb-4 px-9 py-4 rounded-full bg-gradient-to-r from-[#0d9488] via-[#0284c7] to-[#1e3a8a] text-amber-200 text-xl sm:text-2xl font-bold shadow-[0_8px_0_#0f172a,0_14px_28px_rgba(13,148,136,0.38)] hover:shadow-[0_10px_0_#0f172a,0_18px_36px_rgba(2,132,199,0.48)] border-4 border-amber-300 flex items-center gap-3">
+        <span>Start the Mission</span>
+        <span class="text-2xl">🚀</span>
+      </button>
+
+      <!-- Playful Cartoon Rocket SVG on White Background -->
+      <div class="w-60 h-60 sm:w-72 sm:h-72 flex items-center justify-center animate-float">
+        <svg viewBox="0 0 260 260" class="w-full h-full drop-shadow-xl" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Soft Launch Cloud Puff at Base -->
+          <circle cx="95" cy="215" r="24" fill="#E2E8F0"/>
+          <circle cx="130" cy="212" r="30" fill="#F1F5F9"/>
+          <circle cx="165" cy="215" r="24" fill="#E2E8F0"/>
+          <circle cx="112" cy="224" r="20" fill="#CBD5E1"/>
+          <circle cx="148" cy="224" r="20" fill="#CBD5E1"/>
+
+          <!-- Rocket Exhaust Flame -->
+          <path d="M114 176 C114 176 108 206 130 226 C152 206 146 176 146 176 Z" fill="#F97316"/>
+          <path d="M121 176 C121 176 117 198 130 212 C143 198 139 176 139 176 Z" fill="#FACC15"/>
+
+          <!-- Left & Right Red Cartoon Fins -->
+          <path d="M96 138 L66 172 L98 166 Z" fill="#EF4444" stroke="#0F2966" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M164 138 L194 172 L162 166 Z" fill="#EF4444" stroke="#0F2966" stroke-width="4" stroke-linejoin="round"/>
+
+          <!-- Rocket Thruster Nozzle -->
+          <path d="M112 168 L148 168 L154 180 L106 180 Z" fill="#334155" stroke="#0F2966" stroke-width="4" stroke-linejoin="round"/>
+
+          <!-- Main Rocket Body (White & Sky Accent) -->
+          <path d="M130 28 C98 64 94 118 98 168 L162 168 C166 118 162 64 130 28 Z" fill="#FFFFFF" stroke="#0F2966" stroke-width="5" stroke-linejoin="round"/>
+
+          <!-- Red Nose Cone -->
+          <path d="M130 28 C113 47 104 65 101 80 L159 80 C156 65 147 47 130 28 Z" fill="#EF4444" stroke="#0F2966" stroke-width="5" stroke-linejoin="round"/>
+
+          <!-- Blue Porthole Window -->
+          <circle cx="130" cy="114" r="22" fill="#38BDF8" stroke="#0F2966" stroke-width="5"/>
+          <circle cx="123" cy="107" r="6" fill="#FFFFFF" opacity="0.85"/>
+
+          <!-- Center Fin -->
+          <path d="M130 142 L130 176" stroke="#EF4444" stroke-width="8" stroke-linecap="round"/>
+          <path d="M130 142 L130 176" stroke="#0F2966" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Cute Sparkles Around Rocket -->
+          <path d="M56 76 L60 86 L70 90 L60 94 L56 104 L52 94 L42 90 L52 86 Z" fill="#FACC15"/>
+          <path d="M204 62 L207 70 L215 73 L207 76 L204 84 L201 76 L193 73 L201 70 Z" fill="#38BDF8"/>
+          <circle cx="72" cy="126" r="4" fill="#FB923C"/>
+          <circle cx="192" cy="118" r="4.5" fill="#1D4ED8"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCREEN 2: SPACE HUB (Minimalist Space + Opposite Planet Entrances)
+  ====================================================================== -->
+  <section id="screen-2" class="screen flex-col items-center justify-center relative z-10 px-4 py-20 overflow-hidden">
+    <div class="max-w-4xl w-full text-center mb-6 sm:mb-10">
+      <span class="inline-block px-4 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/40 text-indigo-200 text-xs sm:text-sm font-bold uppercase tracking-wider mb-2">
+        Choose Your Destination
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-bold text-white mb-2">
+        Where Shall We Explore First?
+      </h2>
+      <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto">
+        Tap on <strong>Mars</strong> first to start Mission 1 and discover the twin rovers!
+      </p>
+    </div>
+
+    <!-- Opposite-Direction Entrance Container: Mars rises from bottom-left, Moon drops from top-right -->
+    <div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-14 items-center justify-items-center my-2">
+      
+      <!-- MISSION 1: MARS (Rises UP from Bottom) -->
+      <div id="planet-mars-card" onclick="startMarsMission()"
+        class="mars-entrance group cursor-pointer flex flex-col items-center p-6 rounded-3xl bg-slate-900/60 hover:bg-slate-800/80 border-2 border-orange-500/50 hover:border-orange-400 transition-colors duration-300 shadow-[0_0_40px_rgba(249,115,22,0.2)] hover:shadow-[0_0_55px_rgba(249,115,22,0.45)] w-full max-w-xs">
+        
+        <span class="px-3.5 py-1 rounded-full bg-orange-500 text-white text-xs font-extrabold uppercase tracking-wider mb-4 shadow">
+          Mission 1 • Rises From Below!
+        </span>
+
+        <!-- Cartoon Mars SVG -->
+        <div class="relative w-44 h-44 sm:w-52 sm:h-52 group-hover:scale-105 transition-transform duration-300">
+          <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_25px_rgba(239,68,68,0.5)]">
+            <defs>
+              <radialGradient id="marsGrad" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#FB923C"/>
+                <stop offset="55%" stop-color="#EA580C"/>
+                <stop offset="100%" stop-color="#9A3412"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="82" fill="url(#marsGrad)"/>
+            <!-- Cute Craters & Surface Bands -->
+            <ellipse cx="68" cy="70" rx="16" ry="10" fill="#9A3412" opacity="0.45"/>
+            <ellipse cx="135" cy="65" rx="12" ry="8" fill="#9A3412" opacity="0.4"/>
+            <ellipse cx="125" cy="135" rx="20" ry="12" fill="#7C2D12" opacity="0.45"/>
+            <circle cx="62" cy="128" r="9" fill="#9A3412" opacity="0.4"/>
+            <!-- Friendly Planet Face -->
+            <circle cx="80" cy="96" r="6" fill="#1E293B"/>
+            <circle cx="120" cy="96" r="6" fill="#1E293B"/>
+            <circle cx="82" cy="94" r="2" fill="#FFFFFF"/>
+            <circle cx="122" cy="94" r="2" fill="#FFFFFF"/>
+            <path d="M88 112 Q100 124 112 112" stroke="#1E293B" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <ellipse cx="68" cy="106" rx="6" ry="3.5" fill="#FCA5A5" opacity="0.6"/>
+            <ellipse cx="132" cy="106" rx="6" ry="3.5" fill="#FCA5A5" opacity="0.6"/>
+          </svg>
+        </div>
+
+        <h3 class="text-2xl sm:text-3xl font-bold text-orange-400 mt-4">Mars</h3>
+        <p class="text-slate-300 text-sm font-semibold mt-1">Spirit & Opportunity Rovers</p>
+      </div>
+
+      <!-- MISSION 2: THE MOON (Drops DOWN from Top - Opposite to Mars) -->
+      <div id="planet-moon-card" onclick="handleMoonHubClick()"
+        class="moon-entrance group cursor-pointer flex flex-col items-center p-6 rounded-3xl bg-slate-900/60 hover:bg-slate-800/80 border-2 border-sky-400/40 hover:border-sky-300 transition-colors duration-300 shadow-[0_0_40px_rgba(56,189,248,0.18)] hover:shadow-[0_0_55px_rgba(56,189,248,0.4)] w-full max-w-xs">
+        
+        <span id="moon-hub-badge" class="px-3.5 py-1 rounded-full bg-sky-500/30 border border-sky-400/50 text-sky-200 text-xs font-extrabold uppercase tracking-wider mb-4">
+          Mission 2 • Drops From Above!
+        </span>
+
+        <!-- Cartoon Moon SVG -->
+        <div class="relative w-44 h-44 sm:w-52 sm:h-52 group-hover:scale-105 transition-transform duration-300">
+          <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_25px_rgba(226,232,240,0.4)]">
+            <defs>
+              <radialGradient id="moonGrad" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#F8FAFC"/>
+                <stop offset="60%" stop-color="#CBD5E1"/>
+                <stop offset="100%" stop-color="#64748B"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="82" fill="url(#moonGrad)"/>
+            <!-- Moon Craters -->
+            <circle cx="64" cy="68" r="14" fill="#94A3B8" opacity="0.5"/>
+            <circle cx="136" cy="74" r="11" fill="#94A3B8" opacity="0.45"/>
+            <circle cx="122" cy="136" r="16" fill="#94A3B8" opacity="0.5"/>
+            <circle cx="68" cy="132" r="10" fill="#94A3B8" opacity="0.4"/>
+            <!-- Friendly Moon Face -->
+            <circle cx="80" cy="96" r="6" fill="#1E293B"/>
+            <circle cx="120" cy="96" r="6" fill="#1E293B"/>
+            <circle cx="82" cy="94" r="2" fill="#FFFFFF"/>
+            <circle cx="122" cy="94" r="2" fill="#FFFFFF"/>
+            <path d="M88 112 Q100 123 112 112" stroke="#1E293B" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <ellipse cx="68" cy="106" rx="6" ry="3.5" fill="#F472B6" opacity="0.45"/>
+            <ellipse cx="132" cy="106" rx="6" ry="3.5" fill="#F472B6" opacity="0.45"/>
+          </svg>
+        </div>
+
+        <h3 class="text-2xl sm:text-3xl font-bold text-sky-300 mt-4">The Moon</h3>
+        <p class="text-slate-300 text-sm font-semibold mt-1">Apollo 11 Lunar Mission</p>
+      </div>
+
+    </div>
+
+    <!-- Helpful Hint Toast if user clicks Moon before Mars -->
+    <div id="hub-hint-box" class="hidden mt-4 px-5 py-3 rounded-2xl bg-amber-500/20 border border-amber-400 text-amber-200 text-sm sm:text-base font-bold max-w-md text-center animate-bounce">
+      🌟 Let's visit <strong>Mars (Mission 1)</strong> first so we don't miss the twin rovers!
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCREEN 3: MISSION 1 — MARS (Astronaut on Mars + 4 Slides + 2 Star Quizzes)
+  ====================================================================== -->
+  <section id="screen-3" class="screen flex-col justify-between relative z-10 pt-16 overflow-hidden">
+    <!-- Top Story & Quiz Area -->
+    <div class="max-w-4xl w-full mx-auto px-4 pt-4 pb-2 flex-1 flex flex-col justify-center">
+      
+      <!-- Step Progress Indicator -->
+      <div class="flex items-center justify-between mb-4">
+        <span id="mars-step-badge" class="px-3.5 py-1 rounded-full bg-orange-500/20 border border-orange-400/50 text-orange-300 text-xs sm:text-sm font-bold">
+          🔴 Mars Speaks • Slide 1 of 4
+        </span>
+        <div class="flex gap-2" id="mars-dots">
+          <span class="w-3 h-3 rounded-full bg-orange-400"></span>
+          <span class="w-3 h-3 rounded-full bg-slate-600"></span>
+          <span class="w-3 h-3 rounded-full bg-slate-600"></span>
+          <span class="w-3 h-3 rounded-full bg-slate-600"></span>
+          <span class="w-3 h-3 rounded-full bg-slate-600"></span>
+          <span class="w-3 h-3 rounded-full bg-slate-600"></span>
+        </div>
+      </div>
+
+      <!-- Dynamic Mars Story & Interactive Quiz Container -->
+      <div id="mars-dynamic-card" class="bg-slate-900/85 border-2 border-orange-500/40 rounded-3xl p-5 sm:p-8 shadow-2xl backdrop-blur-md">
+        <!-- Populated dynamically via renderMarsStep() -->
+      </div>
+    </div>
+
+    <!-- Bottom Red Planet Horizon + Cute Astronaut Standing on Mars -->
+    <div class="relative w-full h-36 sm:h-44 mt-4 select-none pointer-events-none">
+      <!-- Cute Astronaut Standing on Mars -->
+      <svg class="w-24 h-28 sm:w-28 sm:h-32 mx-auto relative z-20 -mb-6 animate-float" viewBox="0 0 140 160" fill="none">
+        <!-- Backpack -->
+        <rect x="42" y="58" width="56" height="52" rx="14" fill="#CBD5E1" stroke="#1E293B" stroke-width="4"/>
+        <!-- Body -->
+        <rect x="48" y="64" width="44" height="48" rx="16" fill="#F8FAFC" stroke="#1E293B" stroke-width="4"/>
+        <!-- Chest Control Pack -->
+        <rect x="58" y="76" width="24" height="16" rx="4" fill="#38BDF8" stroke="#1E293B" stroke-width="3"/>
+        <!-- Arms -->
+        <path d="M48 74 L28 60" stroke="#F8FAFC" stroke-width="12" stroke-linecap="round"/>
+        <path d="M48 74 L28 60" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <path d="M92 74 L112 88" stroke="#F8FAFC" stroke-width="12" stroke-linecap="round"/>
+        <!-- Legs -->
+        <rect x="52" y="108" width="14" height="26" rx="7" fill="#F8FAFC" stroke="#1E293B" stroke-width="4"/>
+        <rect x="74" y="108" width="14" height="26" rx="7" fill="#F8FAFC" stroke="#1E293B" stroke-width="4"/>
+        <!-- Helmet -->
+        <circle cx="70" cy="40" r="28" fill="#F8FAFC" stroke="#1E293B" stroke-width="4"/>
+        <!-- Gold Visor -->
+        <rect x="50" y="26" width="40" height="24" rx="12" fill="#0F172A" stroke="#F59E0B" stroke-width="3"/>
+        <path d="M56 32 Q66 29 74 32" stroke="#38BDF8" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+
+      <!-- Curved Red Mars Surface -->
+      <svg viewBox="0 0 1440 180" preserveAspectRatio="none" class="w-full h-full relative z-10">
+        <path d="M0,70 Q720,-30 1440,70 L1440,180 L0,180 Z" fill="#C2410C"/>
+        <path d="M0,95 Q720,5 1440,95 L1440,180 L0,180 Z" fill="#9A3412"/>
+        <ellipse cx="260" cy="115" rx="55" ry="14" fill="#7C2D12" opacity="0.6"/>
+        <ellipse cx="1140" cy="120" rx="70" ry="16" fill="#7C2D12" opacity="0.6"/>
+        <ellipse cx="720" cy="135" rx="90" ry="18" fill="#7C2D12" opacity="0.5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCREEN 4: MISSION 2 — APOLLO 11 EPIC INTRODUCTION (Told by the Moon)
+  ====================================================================== -->
+  <section id="screen-4" class="screen flex-col items-center justify-center relative z-10 px-4 py-20">
+    <div class="max-w-3xl w-full bg-slate-900/85 border-2 border-sky-400/50 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md text-center">
+      
+      <!-- Cute Moon Narrator Avatar -->
+      <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-4 animate-float">
+        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+          <circle cx="100" cy="100" r="82" fill="#E2E8F0"/>
+          <circle cx="64" cy="68" r="14" fill="#94A3B8" opacity="0.5"/>
+          <circle cx="136" cy="74" r="11" fill="#94A3B8" opacity="0.45"/>
+          <circle cx="122" cy="136" r="16" fill="#94A3B8" opacity="0.5"/>
+          <circle cx="80" cy="96" r="6" fill="#1E293B"/>
+          <circle cx="120" cy="96" r="6" fill="#1E293B"/>
+          <path d="M88 112 Q100 123 112 112" stroke="#1E293B" stroke-width="5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+
+      <span class="px-4 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs sm:text-sm font-bold uppercase tracking-wider">
+        🌕 The Moon Speaks • Mission 2
+      </span>
+
+      <h2 class="text-3xl sm:text-5xl font-bold text-white mt-3 mb-4">
+        The Greatest Adventure in History: <span class="text-sky-300">Apollo 11!</span>
+      </h2>
+
+      <p class="text-slate-200 text-base sm:text-xl leading-relaxed font-semibold mb-6">
+        Hey there, space explorer! I'm <strong>the Moon</strong>! For millions of years, humans only looked up at me from Earth. Then, in <strong>July 1969</strong>, humanity built the tallest, most powerful rocket ever made—the giant <strong>Saturn V</strong>—to send three brave astronauts across 384,000 kilometers of space to visit me for the very first time!
+      </p>
+
+      <!-- Crew Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 text-left">
+        <div class="p-3.5 rounded-2xl bg-slate-800/90 border border-slate-700">
+          <div class="text-2xl mb-1">👨‍🚀</div>
+          <div class="font-display font-bold text-sky-300 text-base">Neil Armstrong</div>
+          <div class="text-xs text-slate-300 font-semibold">Mission Commander & first human to walk on me!</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-800/90 border border-slate-700">
+          <div class="text-2xl mb-1">🧑‍🚀</div>
+          <div class="font-display font-bold text-sky-300 text-base">Buzz Aldrin</div>
+          <div class="text-xs text-slate-300 font-semibold">Lunar Module Pilot who landed Eagle on my surface!</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-800/90 border border-slate-700">
+          <div class="text-2xl mb-1">🛰️</div>
+          <div class="font-display font-bold text-sky-300 text-base">Michael Collins</div>
+          <div class="text-xs text-slate-300 font-semibold">Command Module Pilot orbiting high above to bring them home!</div>
+        </div>
+      </div>
+
+      <button onclick="goToLaunchpad()"
+        class="btn-playful px-8 py-4 rounded-full bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 font-extrabold text-lg sm:text-xl shadow-[0_7px_0_#1e3a8a] hover:shadow-[0_9px_0_#1e3a8a]">
+        Go to the Launchpad 🚀
+      </button>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCREEN 5: INTERACTIVE APOLLO 11 LAUNCHPAD (10s Countdown + Liftoff)
+  ====================================================================== -->
+  <section id="screen-5" class="screen flex-col items-center justify-center relative z-10 px-4 py-16">
+    <div class="max-w-3xl w-full flex flex-col items-center text-center">
+      
+      <span class="px-4 py-1 rounded-full bg-red-500/20 border border-red-400/50 text-red-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-2">
+        Kennedy Space Center • Launch Complex 39A
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-2">
+        Ready for Apollo 11 Liftoff!
+      </h2>
+      <p id="launch-status-text" class="text-slate-300 text-sm sm:text-base font-semibold mb-4">
+        Press the big red button below to start the 10-second countdown!
+      </p>
+
+      <!-- Launchpad Stage Box (Simulates Real Apollo 11 Liftoff & Telemetry) -->
+      <div class="relative w-full max-w-xl h-80 sm:h-96 rounded-3xl bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-900 border-2 border-slate-700 overflow-hidden shadow-2xl flex flex-col items-center justify-end p-4">
+        
+        <!-- Live Telemetry / Countdown HUD inside Launch Window -->
+        <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-20">
+          <div class="px-3 py-1 rounded-lg bg-black/70 border border-slate-700 text-left font-mono text-xs text-emerald-400">
+            <div>MISSION: APOLLO 11</div>
+            <div id="telemetry-alt">ALTITUDE: 0.0 KM</div>
+          </div>
+          <div id="countdown-badge" class="px-4 py-1.5 rounded-xl bg-black/80 border-2 border-red-500 font-display font-bold text-2xl sm:text-3xl text-red-400 shadow-lg">
+            T-10
+          </div>
+        </div>
+
+        <!-- Saturn V Rocket Assembly -->
+        <div id="saturn-v-wrapper" class="relative z-10 flex flex-col items-center mb-4">
+          <!-- Saturn V SVG -->
+          <svg class="w-28 h-56 sm:w-32 sm:h-64" viewBox="0 0 140 280" fill="none">
+            <!-- Escape Tower -->
+            <line x1="70" y1="6" x2="70" y2="34" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+            <!-- Apollo Capsule -->
+            <polygon points="70,30 56,54 84,54" fill="#CBD5E1" stroke="#1E293B" stroke-width="3"/>
+            <!-- Upper Stage -->
+            <rect x="56" y="54" width="28" height="45" fill="#F8FAFC" stroke="#1E293B" stroke-width="3"/>
+            <rect x="56" y="68" width="28" height="10" fill="#0F172A"/>
+            <!-- Main Booster Stage (USA) -->
+            <rect x="50" y="99" width="40" height="118" fill="#F8FAFC" stroke="#1E293B" stroke-width="3"/>
+            <rect x="50" y="182" width="40" height="35" fill="#0F172A"/>
+            <text x="70" y="148" text-anchor="middle" fill="#EF4444" font-family="Arial" font-weight="bold" font-size="11" letter-spacing="1">USA</text>
+            <!-- Fins -->
+            <polygon points="50,192 32,222 50,217" fill="#1E293B"/>
+            <polygon points="90,192 108,222 90,217" fill="#1E293B"/>
+            <!-- 5 F-1 Engine Nozzles -->
+            <polygon points="54,217 48,232 62,232 60,217" fill="#475569"/>
+            <polygon points="66,217 62,232 78,232 74,217" fill="#334155"/>
+            <polygon points="80,217 78,232 92,232 86,217" fill="#475569"/>
+          </svg>
+
+          <!-- Rocket Fire Thrust (Hidden until ignition) -->
+          <div id="rocket-flames" class="hidden -mt-3 flex flex-col items-center flame-active">
+            <svg class="w-24 h-24" viewBox="0 0 100 100">
+              <path d="M25 0 L75 0 L62 85 L50 100 L38 85 Z" fill="#F97316"/>
+              <path d="M35 0 L65 0 L56 65 L50 78 L44 65 Z" fill="#FACC15"/>
+              <path d="M42 0 L58 0 L50 45 Z" fill="#FFFFFF"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Smoke Plumes at Base -->
+        <div id="launch-smoke" class="hidden absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-none">
+          <div class="w-24 h-14 rounded-full bg-slate-200/90 blur-sm animate-ping"></div>
+          <div class="w-32 h-16 rounded-full bg-white/90 blur-sm animate-pulse"></div>
+          <div class="w-24 h-14 rounded-full bg-slate-200/90 blur-sm animate-ping"></div>
+        </div>
+
+        <!-- Launchpad Ground -->
+        <div class="absolute bottom-0 left-0 right-0 h-5 bg-slate-700 border-t-2 border-slate-500 z-20"></div>
+      </div>
+
+      <!-- Big Red Launch Button -->
+      <div class="mt-6">
+        <button id="launch-btn" onclick="triggerRocketLaunch()"
+          class="btn-playful px-8 py-4 rounded-full bg-gradient-to-b from-red-500 to-red-700 text-white font-extrabold text-lg sm:text-2xl border-4 border-red-200 shadow-[0_8px_0_#7f1d1d] hover:shadow-[0_10px_0_#7f1d1d] flex items-center gap-3">
+          <span>🔴</span>
+          <span>Help us launch the rocket</span>
+        </button>
+
+        <button id="post-launch-btn" onclick="startApolloStorySequence()"
+          class="hidden btn-playful px-8 py-4 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-extrabold text-lg sm:text-xl shadow-[0_7px_0_#065f46]">
+          We Have Liftoff! Continue Story →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCREEN 6: APOLLO 11 STORY PAGES + INTERACTIVE STAR QUIZZES
+  ====================================================================== -->
+  <section id="screen-6" class="screen flex-col items-center justify-center relative z-10 px-4 py-20">
+    <div id="apollo-dynamic-container" class="max-w-3xl w-full">
+      <!-- Dynamically renders Story Page 1 -> Quiz 1 -> Story Page 2 -> Quiz 2 -> Story Page 3 -->
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCREEN 7: FINAL REWARD & MOONWALKER CERTIFICATE
+  ====================================================================== -->
+  <section id="screen-7" class="screen flex-col items-center justify-center relative z-10 px-4 py-20">
+    <div class="max-w-2xl w-full bg-slate-900/90 border-2 border-amber-400 rounded-3xl p-6 sm:p-10 text-center shadow-[0_0_50px_rgba(250,204,21,0.3)] backdrop-blur-md">
+      
+      <div id="final-stars-visual" class="text-5xl sm:text-6xl mb-4">⭐⭐⭐⭐</div>
+
+      <span class="px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-wider">
+        Mission Complete • Team Orion X
+      </span>
+
+      <h2 id="final-rank-title" class="text-3xl sm:text-5xl font-bold text-white mt-3 mb-3">
+        Congratulations, <span class="text-amber-400">MOONWALKER!</span>
+      </h2>
+
+      <p id="final-rank-message" class="text-slate-200 text-base sm:text-lg leading-relaxed font-semibold mb-6">
+        You explored Mars with Spirit & Opportunity, launched Apollo 11 to the Moon, and earned <strong>4 out of 4 Gold Stars</strong>! Even though these brave machines were left behind on other worlds, their discoveries will never be forgotten!
+      </p>
+
+      <!-- Official Moonwalker Badge Card -->
+      <div id="moonwalker-badge-card" class="max-w-sm mx-auto p-5 rounded-2xl bg-gradient-to-br from-indigo-900 via-slate-900 to-sky-900 border-2 border-amber-300/70 mb-7 shadow-xl">
+        <div class="text-4xl mb-1">👨‍🚀🌕</div>
+        <div class="font-display font-bold text-amber-300 text-xl tracking-wide">OFFICIAL MOONWALKER</div>
+        <div class="text-xs text-sky-200 font-bold mt-1">NASA Space Apps Challenge • Abandoned But Not Forgotten</div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <button id="retry-quizzes-btn" onclick="retryAllQuizzes()"
+          class="hidden btn-playful px-6 py-3.5 rounded-full bg-amber-400 text-slate-950 font-extrabold text-base shadow-lg">
+          ⭐ Try Challenges Again for Stars
+        </button>
+
+        <button onclick="resetWholeApp()"
+          class="btn-playful px-7 py-3.5 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-[0_6px_0_#1e3a8a]">
+          🔄 Play Again from Start
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       JAVASCRIPT: STORY DATA, SOUND EFFECTS & INTERACTIVE LOGIC
+  ====================================================================== -->
+  <script>
+    // -------------------------------------------------------------------
+    // 1. APPLICATION STATE
+    // -------------------------------------------------------------------
+    let soundEnabled = true;
+    let audioCtx = null;
+    let marsStepIndex = 0; // 0: Slide 1, 1: Slide 2, 2: Mars Quiz 1, 3: Slide 3, 4: Mars Quiz 2, 5: Slide 4
+    let marsCompleted = false;
+    let starsEarned = 0;
+    let marsQuiz1Solved = false;
+    let marsQuiz2Solved = false;
+    let quiz1Solved = false;
+    let quiz2Solved = false;
+    let apolloStepIndex = 0; // 0: Story A, 1: Quiz 1, 2: Story B, 3: Quiz 2, 4: Story C
+
+    // -------------------------------------------------------------------
+    // 2. WEB AUDIO SYNTHESIZER (Zero External Sound URLs)
+    // -------------------------------------------------------------------
+    function ensureAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, duration = 0.15, type = 'sine', volume = 0.15) {
+      if (!soundEnabled) return;
+      try {
+        ensureAudioContext();
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Ignore audio errors on restricted devices
+      }
+    }
+
+    function playClickSound() {
+      playTone(520, 0.1, 'triangle', 0.14);
+    }
+
+    function playSuccessChime() {
+      playTone(523.25, 0.14, 'sine', 0.18);
+      setTimeout(() => playTone(659.25, 0.14, 'sine', 0.18), 110);
+      setTimeout(() => playTone(783.99, 0.28, 'sine', 0.2), 220);
+    }
+
+    function playCountdownBeep(isFinal = false) {
+      playTone(isFinal ? 880 : 440, isFinal ? 0.45 : 0.16, 'square', 0.12);
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+      document.getElementById('sound-label').textContent = soundEnabled ? 'Sound On' : 'Muted';
+      if (soundEnabled) playClickSound();
+    }
+
+    // -------------------------------------------------------------------
+    // 3. STARFIELD BACKGROUND GENERATOR
+    // -------------------------------------------------------------------
+    function buildStarfield() {
+      const container = document.getElementById('space-starfield');
+      container.innerHTML = '';
+      const count = 55; // Minimalist, uncluttered space feel
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star-dot';
+        const size = Math.random() * 3 + 1.5;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = (Math.random() * 3) + 's';
+        container.appendChild(star);
+      }
+    }
+
+    // -------------------------------------------------------------------
+    // 4. SCREEN NAVIGATION HELPER
+    // -------------------------------------------------------------------
+    function showScreen(screenId, useSpaceTheme = true) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(screenId);
+      if (target) target.classList.add('active');
+
+      const starfield = document.getElementById('space-starfield');
+      if (useSpaceTheme) {
+        document.body.classList.add('space-mode');
+        starfield.classList.remove('hidden');
+      } else {
+        document.body.classList.remove('space-mode');
+        starfield.classList.add('hidden');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Screen 1 -> Screen 2 (Space Hub)
+    function goToSpaceHub() {
+      playClickSound();
+      buildStarfield();
+      showScreen('screen-2', true);
+
+      // Re-trigger opposite-direction entrance animations cleanly
+      const marsCard = document.getElementById('planet-mars-card');
+      const moonCard = document.getElementById('planet-moon-card');
+      marsCard.classList.remove('mars-entrance');
+      moonCard.classList.remove('moon-entrance');
+      void marsCard.offsetWidth; // Force reflow
+      marsCard.classList.add('mars-entrance');
+      moonCard.classList.add('moon-entrance');
+    }
+
+    function handleMoonHubClick() {
+      playClickSound();
+      if (!marsCompleted) {
+        const hint = document.getElementById('hub-hint-box');
+        hint.classList.remove('hidden');
+      } else {
+        goToApolloIntro();
+      }
+    }
+
+    // -------------------------------------------------------------------
+    // 5. MARS STORY SLIDES & 2 INTERACTIVE STAR QUIZZES (Screen 3)
+    // -------------------------------------------------------------------
+    const marsSteps = [
+      {
+        type: 'slide',
+        slideNum: 1,
+        title: "1. Billions of Years Ago, I Had Water!",
+        text: "Hi Earthling! I'm <strong>Mars</strong>! Today I look like a dry red desert, but <strong>billions of years ago</strong> I had real rivers and lakes! Scientists found tiny gray mineral spheres called <strong>hematite</strong> (nicknamed 'blueberries') and layered <strong>sedimentary rocks</strong> on my surface—solid proof that water once flowed right here!",
+        visual: `
+          <svg viewBox="0 0 220 150" class="w-48 h-36">
+            <path d="M20 120 L55 55 L165 55 L200 120 Z" fill="#B45309" stroke="#FDBA74" stroke-width="2"/>
+            <line x1="35" y1="95" x2="185" y2="95" stroke="#FDE68A" stroke-width="3" stroke-dasharray="6 4"/>
+            <line x1="46" y1="75" x2="174" y2="75" stroke="#FED7AA" stroke-width="3"/>
+            <circle cx="72" cy="128" r="9" fill="#60A5FA" stroke="#1E3A8A" stroke-width="2"/>
+            <circle cx="96" cy="132" r="7" fill="#93C5FD" stroke="#1E3A8A" stroke-width="2"/>
+            <circle cx="122" cy="127" r="10" fill="#3B82F6" stroke="#1E3A8A" stroke-width="2"/>
+            <circle cx="148" cy="131" r="8" fill="#60A5FA" stroke="#1E3A8A" stroke-width="2"/>
+          </svg>
+          <span class="text-xs text-sky-300 font-bold mt-2 text-center">Hematite "Blueberries" & Sedimentary Rocks</span>
+        `
+      },
+      {
+        type: 'slide',
+        slideNum: 2,
+        title: "2. Meet My Twin Robot Friends!",
+        text: "Fast-forward to <strong>2004</strong>! NASA sent two robotic geologists to explore me: <strong>Spirit</strong> and <strong>Opportunity</strong>! They were solar-powered twin rovers equipped with cameras, drills, and microscopes to search my rocks and soil for clues about my watery past.",
+        visual: `
+          <svg viewBox="0 0 220 150" class="w-48 h-36">
+            <rect x="35" y="75" width="60" height="22" rx="6" fill="#FACC15" stroke="#1E293B" stroke-width="3"/>
+            <rect x="25" y="68" width="80" height="10" rx="3" fill="#1D4ED8"/>
+            <line x1="78" y1="68" x2="78" y2="42" stroke="#E2E8F0" stroke-width="4"/>
+            <rect x="68" y="34" width="22" height="12" rx="3" fill="#F8FAFC" stroke="#1E293B" stroke-width="2"/>
+            <circle cx="45" cy="104" r="9" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+            <circle cx="65" cy="104" r="9" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+            <circle cx="85" cy="104" r="9" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+
+            <rect x="130" y="78" width="55" height="20" rx="6" fill="#FB923C" stroke="#1E293B" stroke-width="3"/>
+            <rect x="122" y="71" width="72" height="9" rx="3" fill="#2563EB"/>
+            <line x1="145" y1="71" x2="145" y2="46" stroke="#E2E8F0" stroke-width="4"/>
+            <rect x="135" y="38" width="20" height="11" rx="3" fill="#F8FAFC" stroke="#1E293B" stroke-width="2"/>
+            <circle cx="138" cy="104" r="8" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+            <circle cx="158" cy="104" r="8" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+            <circle cx="176" cy="104" r="8" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+          </svg>
+          <span class="text-xs text-amber-300 font-bold mt-2 text-center">Twin Rovers: Spirit & Opportunity (2004)</span>
+        `
+      },
+      {
+        type: 'quiz1'
+      },
+      {
+        type: 'slide',
+        slideNum: 3,
+        title: "3. A 90-Day Mission That Lasted 15 Years!",
+        text: "Their mission was only planned to last <strong>90 Martian days</strong>! Instead, Spirit worked for over <strong>6 years</strong>, and Opportunity rolled across <strong>45 kilometers</strong> for almost <strong>15 years</strong>! Together, they proved Mars once had friendly water where tiny life could have lived.",
+        visual: `
+          <div class="flex flex-col items-center justify-center text-center py-2">
+            <div class="text-4xl mb-2">🏆🚗💨</div>
+            <div class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-display font-bold text-lg">
+              Planned: 90 Days
+            </div>
+            <div class="text-slate-400 text-xs font-bold my-1">VS</div>
+            <div class="px-4 py-2 rounded-xl bg-amber-400/20 border border-amber-400 text-amber-300 font-display font-bold text-lg">
+              Actual: Almost 15 Years!
+            </div>
+          </div>
+        `
+      },
+      {
+        type: 'quiz2'
+      },
+      {
+        type: 'slide',
+        slideNum: 4,
+        title: "4. Why Were They Left Behind?",
+        text: "I have wild weather! In <strong>2009</strong>, Spirit's wheels got stuck in soft hidden sand and it couldn't tilt toward the Sun to charge. Then in <strong>2018</strong>, a gigantic dust storm covered my entire planet and blocked sunlight from Opportunity's solar panels. They went to sleep on Mars—<strong>abandoned, but never forgotten!</strong>",
+        visual: `
+          <svg viewBox="0 0 220 150" class="w-48 h-36">
+            <path d="M20 45 Q110 20 200 45" stroke="#FB923C" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M15 70 Q110 45 205 70" stroke="#F97316" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M30 95 Q110 75 190 95" stroke="#EA580C" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.75"/>
+            <rect x="78" y="102" width="64" height="20" rx="6" fill="#94A3B8" stroke="#1E293B" stroke-width="3"/>
+            <circle cx="90" cy="128" r="9" fill="#334155"/>
+            <circle cx="110" cy="128" r="9" fill="#334155"/>
+            <circle cx="130" cy="128" r="9" fill="#334155"/>
+            <text x="152" y="96" fill="#FDE047" font-family="Fredoka, sans-serif" font-weight="bold" font-size="16">Zzz...</text>
+          </svg>
+          <span class="text-xs text-orange-300 font-bold mt-2 text-center">Trapped by Soft Sand & Planet-Wide Dust Storms</span>
+        `
+      }
+    ];
+
+    function startMarsMission() {
+      playClickSound();
+      marsStepIndex = 0;
+      updateStarHud();
+      renderMarsStep();
+      showScreen('screen-3', true);
+    }
+
+    function renderMarsStep() {
+      const step = marsSteps[marsStepIndex];
+      const badge = document.getElementById('mars-step-badge');
+      const card = document.getElementById('mars-dynamic-card');
+
+      // Update progress dots
+      const dots = document.getElementById('mars-dots').children;
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = i === marsStepIndex
+          ? 'w-3.5 h-3.5 rounded-full bg-orange-400 scale-110 transition'
+          : 'w-3 h-3 rounded-full bg-slate-600 transition';
+      }
+
+      if (step.type === 'slide') {
+        badge.textContent = `🔴 Mars Speaks • Slide ${step.slideNum} of 4`;
+        badge.className = 'px-3.5 py-1 rounded-full bg-orange-500/20 border border-orange-400/50 text-orange-300 text-xs sm:text-sm font-bold';
+
+        const isLastSlide = (marsStepIndex === marsSteps.length - 1);
+        if (isLastSlide) {
+          marsCompleted = true;
+          playSuccessChime();
+        }
+
+        card.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-5 flex flex-col items-center justify-center bg-slate-950/80 rounded-2xl p-4 border border-slate-800 min-h-[200px]">
+              ${step.visual}
+            </div>
+
+            <div class="md:col-span-7 flex flex-col justify-between">
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-orange-400 mb-3">
+                  ${step.title}
+                </h3>
+                <p class="text-slate-100 text-base sm:text-lg leading-relaxed font-semibold">
+                  ${step.text}
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between mt-6 pt-4 border-t border-slate-800">
+                <button onclick="changeMarsStep(-1)" ${marsStepIndex === 0 ? 'disabled' : ''}
+                  class="btn-playful px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm sm:text-base disabled:opacity-30 disabled:pointer-events-none">
+                  ← Previous
+                </button>
+
+                ${!isLastSlide ? `
+                  <button onclick="changeMarsStep(1)"
+                    class="btn-playful px-6 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg">
+                    ${step.slideNum === 2 || step.slideNum === 3 ? 'Mars Star Challenge ⭐ →' : 'Next Story →'}
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+
+          ${isLastSlide ? `
+            <div class="mt-6 p-5 rounded-2xl bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-sky-500/20 border-2 border-amber-400 text-center">
+              <p class="text-xl sm:text-2xl font-display font-bold text-amber-300 mb-3">
+                🎉 Your mission on Mars is ended!
+              </p>
+              <button onclick="goToApolloIntro()"
+                class="btn-playful px-7 py-3.5 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-[0_6px_0_#1e3a8a] hover:shadow-[0_8px_0_#1e3a8a]">
+                Click here to visit your next destination 🌕
+              </button>
+            </div>
+          ` : ''}
+        `;
+      }
+
+      // MARS INTERACTIVE QUIZ 1 (Simple 5-Letter Word Puzzle: WATER)
+      else if (step.type === 'quiz1') {
+        badge.textContent = '⭐ Mars Star Challenge #1';
+        badge.className = 'px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs sm:text-sm font-extrabold';
+
+        card.innerHTML = `
+          <div class="text-center">
+            <span class="px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs font-extrabold uppercase">
+              ⭐ Mars Mini Word Puzzle
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+              Win a Mars Gold Star!
+            </h3>
+            <p class="text-slate-200 text-base sm:text-lg font-semibold max-w-lg mx-auto mb-5">
+              What ancient liquid did Spirit & Opportunity prove once flowed on Mars?
+            </p>
+
+            <div class="flex items-center justify-center gap-1.5 sm:gap-2.5 mb-4">
+              <input type="text" value="W" readonly class="letter-tile locked" aria-label="First letter W" />
+              <input id="mq1-letter-2" type="text" maxlength="1" placeholder="?" class="letter-tile" aria-label="Second letter" />
+              <input type="text" value="T" readonly class="letter-tile locked" aria-label="Third letter T" />
+              <input type="text" value="E" readonly class="letter-tile locked" aria-label="Fourth letter E" />
+              <input type="text" value="R" readonly class="letter-tile locked" aria-label="Fifth letter R" />
+            </div>
+
+            <div class="flex items-center justify-center gap-2 mb-4">
+              <span class="text-xs text-slate-400 font-bold mr-1">Tap a letter:</span>
+              <button onclick="fillMarsQ1Letter('A')" class="btn-playful px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-display font-bold border border-slate-600">A</button>
+              <button onclick="fillMarsQ1Letter('O')" class="btn-playful px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-display font-bold border border-slate-600">O</button>
+              <button onclick="fillMarsQ1Letter('U')" class="btn-playful px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-display font-bold border border-slate-600">U</button>
+            </div>
+
+            <div id="mq1-feedback" class="min-h-[28px] text-base font-bold mb-4"></div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button id="mq1-check-btn" onclick="checkMarsQuiz1()"
+                class="btn-playful px-7 py-3 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+                Check Answer ⭐
+              </button>
+              <button id="mq1-continue-btn" onclick="changeMarsStep(1)"
+                class="hidden btn-playful px-7 py-3 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+                Continue Mars Story →
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // MARS INTERACTIVE QUIZ 2 (Quick Trivia about the Twin Rovers' Lifespan)
+      else if (step.type === 'quiz2') {
+        badge.textContent = '⭐ Mars Star Challenge #2';
+        badge.className = 'px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs sm:text-sm font-extrabold';
+
+        card.innerHTML = `
+          <div class="text-center">
+            <span class="px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs font-extrabold uppercase">
+              ⭐ Mars Quick Trivia
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+              Win Your Second Mars Gold Star!
+            </h3>
+            <p class="text-slate-200 text-base sm:text-lg font-semibold max-w-lg mx-auto mb-5">
+              How long did Opportunity keep exploring Mars instead of just 90 days?
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto mb-4">
+              <button onclick="checkMarsQuiz2('2 Weeks')"
+                class="mq2-opt btn-playful p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-white font-display font-bold text-lg">
+                🗓️ 2 Weeks
+              </button>
+              <button onclick="checkMarsQuiz2('Almost 15 Years')"
+                class="mq2-opt btn-playful p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-white font-display font-bold text-lg">
+                🏆 Almost 15 Years
+              </button>
+              <button onclick="checkMarsQuiz2('6 Months')"
+                class="mq2-opt btn-playful p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-white font-display font-bold text-lg">
+                ⏳ 6 Months
+              </button>
+            </div>
+
+            <div id="mq2-feedback" class="min-h-[28px] text-base font-bold mb-4"></div>
+
+            <button id="mq2-continue-btn" onclick="changeMarsStep(1)"
+              class="hidden btn-playful px-7 py-3 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+              Final Mars Story Slide →
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function changeMarsStep(delta) {
+      playClickSound();
+      const next = marsStepIndex + delta;
+      if (next >= 0 && next < marsSteps.length) {
+        marsStepIndex = next;
+        renderMarsStep();
+      }
+    }
+
+    function fillMarsQ1Letter(letter) {
+      playClickSound();
+      const input = document.getElementById('mq1-letter-2');
+      if (input) input.value = letter;
+    }
+
+    function checkMarsQuiz1() {
+      const input = document.getElementById('mq1-letter-2');
+      const feedback = document.getElementById('mq1-feedback');
+      const val = (input ? input.value : '').trim().toUpperCase();
+
+      if (val === 'A') {
+        if (!marsQuiz1Solved) {
+          marsQuiz1Solved = true;
+          starsEarned++;
+          updateStarHud();
+        }
+        playSuccessChime();
+        launchConfetti();
+        feedback.innerHTML = '<span class="text-emerald-400">🌟 Awesome! W-A-T-E-R! You earned a Gold Star!</span>';
+        document.getElementById('mq1-check-btn').classList.add('hidden');
+        document.getElementById('mq1-continue-btn').classList.remove('hidden');
+      } else {
+        playTone(220, 0.2, 'sawtooth', 0.12);
+        feedback.innerHTML = '<span class="text-amber-300">Almost! Try the letter <strong>A</strong> to spell W-A-T-E-R!</span>';
+      }
+    }
+
+    function checkMarsQuiz2(choice) {
+      const feedback = document.getElementById('mq2-feedback');
+      if (choice === 'Almost 15 Years') {
+        if (!marsQuiz2Solved) {
+          marsQuiz2Solved = true;
+          starsEarned++;
+          updateStarHud();
+        }
+        playSuccessChime();
+        launchConfetti();
+        feedback.innerHTML = '<span class="text-emerald-400">🌟 Amazing! Almost 15 Years! You earned another Gold Star!</span>';
+        document.querySelectorAll('.mq2-opt').forEach(btn => btn.disabled = true);
+        document.getElementById('mq2-continue-btn').classList.remove('hidden');
+      } else {
+        playTone(220, 0.2, 'sawtooth', 0.12);
+        feedback.innerHTML = '<span class="text-amber-300">Not quite! Opportunity rolled on Mars for <strong>Almost 15 Years</strong>!</span>';
+      }
+    }
+
+    // -------------------------------------------------------------------
+    // 6. APOLLO 11 INTRO & ROCKET LAUNCHPAD (Screens 4 & 5)
+    // -------------------------------------------------------------------
+    function goToApolloIntro() {
+      playClickSound();
+      showScreen('screen-4', true);
+    }
+
+    function goToLaunchpad() {
+      playClickSound();
+      document.getElementById('countdown-badge').textContent = 'T-10';
+      document.getElementById('countdown-badge').classList.remove('text-emerald-300', 'border-emerald-400');
+      document.getElementById('countdown-badge').classList.add('text-red-400', 'border-red-500');
+      document.getElementById('telemetry-alt').textContent = 'ALTITUDE: 0.0 KM';
+      document.getElementById('launch-status-text').textContent = 'Press the big red button below to start the 10-second countdown!';
+      const wrapper = document.getElementById('saturn-v-wrapper');
+      wrapper.classList.remove('rocket-shaking', 'rocket-blasting-off');
+      document.getElementById('rocket-flames').classList.add('hidden');
+      document.getElementById('launch-smoke').classList.add('hidden');
+      document.getElementById('launch-btn').classList.remove('hidden', 'opacity-60', 'pointer-events-none');
+      document.getElementById('launch-btn').disabled = false;
+      document.getElementById('post-launch-btn').classList.add('hidden');
+
+      showScreen('screen-5', true);
+    }
+
+    function triggerRocketLaunch() {
+      const launchBtn = document.getElementById('launch-btn');
+      launchBtn.disabled = true;
+      launchBtn.classList.add('opacity-60', 'pointer-events-none');
+
+      const badge = document.getElementById('countdown-badge');
+      const statusText = document.getElementById('launch-status-text');
+      const wrapper = document.getElementById('saturn-v-wrapper');
+      const flames = document.getElementById('rocket-flames');
+      const smoke = document.getElementById('launch-smoke');
+      const altHud = document.getElementById('telemetry-alt');
+
+      let count = 10;
+      badge.textContent = 'T-' + count;
+      statusText.textContent = 'Countdown started! Hold tight...';
+      playCountdownBeep(false);
+
+      const timer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          badge.textContent = 'T-' + count;
+          playCountdownBeep(false);
+
+          if (count === 3) {
+            statusText.textContent = 'Main engines ignited! Feel the rumble!';
+            wrapper.classList.add('rocket-shaking');
+            flames.classList.remove('hidden');
+            smoke.classList.remove('hidden');
+          }
+        } else {
+          clearInterval(timer);
+          badge.textContent = 'LIFTOFF! 🚀';
+          badge.classList.remove('text-red-400', 'border-red-500');
+          badge.classList.add('text-emerald-300', 'border-emerald-400');
+          statusText.textContent = 'Houston, we have liftoff! Apollo 11 is heading to the Moon!';
+          playCountdownBeep(true);
+
+          wrapper.classList.remove('rocket-shaking');
+          wrapper.classList.add('rocket-blasting-off');
+
+          let alt = 0;
+          const altInterval = setInterval(() => {
+            alt += 4.2;
+            altHud.textContent = 'ALTITUDE: ' + alt.toFixed(1) + ' KM';
+            if (alt >= 120) clearInterval(altInterval);
+          }, 120);
+
+          setTimeout(() => {
+            launchBtn.classList.add('hidden');
+            document.getElementById('post-launch-btn').classList.remove('hidden');
+            playSuccessChime();
+          }, 2600);
+        }
+      }, 1000);
+    }
+
+    // -------------------------------------------------------------------
+    // 7. APOLLO 11 STORY PAGES + INTERACTIVE STAR QUIZZES (Screen 6)
+    // -------------------------------------------------------------------
+    function updateStarHud() {
+      const hud = document.getElementById('star-hud');
+      hud.classList.remove('hidden');
+      hud.classList.add('flex');
+      document.getElementById('star-count-display').textContent = starsEarned;
+    }
+
+    function startApolloStorySequence() {
+      playClickSound();
+      apolloStepIndex = 0;
+      updateStarHud();
+      renderApolloStep();
+      showScreen('screen-6', true);
+    }
+
+    function renderApolloStep() {
+      const container = document.getElementById('apollo-dynamic-container');
+
+      // STEP 0: APOLLO 11 MISSION GOAL
+      if (apolloStepIndex === 0) {
+        container.innerHTML = `
+          <div class="bg-slate-900/85 border-2 border-sky-400/50 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3.5 py-1 rounded-full bg-sky-500/20 border border-sky-400/50 text-sky-300 text-xs sm:text-sm font-bold">
+                🌕 Apollo 11 • Part 1 of 3
+              </span>
+              <span class="text-xs text-slate-400 font-bold">Mission Goal</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="w-28 h-28 flex-shrink-0 flex items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 text-6xl">
+                🎯
+              </div>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-sky-300 mb-3">
+                  What Was Apollo 11's Big Goal?
+                </h3>
+                <p class="text-slate-100 text-base sm:text-lg leading-relaxed font-semibold">
+                  My friends on Earth had one huge goal: land astronauts safely on my dusty surface for the first time, collect special <strong>Moon rocks</strong> and soil for scientists to study, take photos, and fly everyone safely back home to Earth!
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-7 flex justify-end">
+              <button onclick="nextApolloStep()"
+                class="btn-playful px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+                Apollo Star Challenge #1 ⭐ →
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // STEP 1: INTERACTIVE MINI-QUIZ 1 (Simple 4-Letter Mini Word Puzzle: ROCK)
+      else if (apolloStepIndex === 1) {
+        container.innerHTML = `
+          <div class="bg-slate-900/90 border-2 border-amber-400 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md text-center">
+            <span class="px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs sm:text-sm font-extrabold uppercase">
+              ⭐ Apollo Star Question #1 • Mini Word Puzzle
+            </span>
+
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+              Win an Apollo Gold Star!
+            </h3>
+            <p class="text-slate-200 text-base sm:text-lg font-semibold max-w-lg mx-auto mb-6">
+              What did the Apollo 11 astronauts collect from the Moon's surface to bring back to Earth?
+            </p>
+
+            <div class="flex items-center justify-center gap-2 sm:gap-3 mb-4">
+              <input type="text" value="R" readonly class="letter-tile locked" aria-label="First letter R" />
+              <input id="q1-letter-2" type="text" maxlength="1" placeholder="?" class="letter-tile" aria-label="Second letter" />
+              <input type="text" value="C" readonly class="letter-tile locked" aria-label="Third letter C" />
+              <input type="text" value="K" readonly class="letter-tile locked" aria-label="Fourth letter K" />
+            </div>
+
+            <div class="flex items-center justify-center gap-2 mb-5">
+              <span class="text-xs text-slate-400 font-bold mr-1">Tap a letter:</span>
+              <button onclick="fillQ1Letter('A')" class="btn-playful px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-display font-bold border border-slate-600">A</button>
+              <button onclick="fillQ1Letter('O')" class="btn-playful px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-display font-bold border border-slate-600">O</button>
+              <button onclick="fillQ1Letter('E')" class="btn-playful px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-display font-bold border border-slate-600">E</button>
+            </div>
+
+            <div id="q1-feedback" class="min-h-[28px] text-base font-bold mb-4"></div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button id="q1-check-btn" onclick="checkQuiz1()"
+                class="btn-playful px-7 py-3 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+                Check Answer ⭐
+              </button>
+              <button id="q1-continue-btn" onclick="nextApolloStep()"
+                class="hidden btn-playful px-7 py-3 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+                Continue Story →
+              </button>
+            </div>
+          </div>
+        `;
+        setTimeout(() => {
+          const inp = document.getElementById('q1-letter-2');
+          if (inp) inp.focus();
+        }, 100);
+      }
+
+      // STEP 2: APOLLO 11 BENEFITS & ACHIEVEMENTS
+      else if (apolloStepIndex === 2) {
+        container.innerHTML = `
+          <div class="bg-slate-900/85 border-2 border-sky-400/50 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3.5 py-1 rounded-full bg-sky-500/20 border border-sky-400/50 text-sky-300 text-xs sm:text-sm font-bold">
+                🌕 Apollo 11 • Part 2 of 3
+              </span>
+              <span class="text-xs text-slate-400 font-bold">Benefits & Achievements</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="w-28 h-28 flex-shrink-0 flex items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 text-6xl">
+                👣
+              </div>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-sky-300 mb-3">
+                  Giant Leaps & Cool Inventions!
+                </h3>
+                <p class="text-slate-100 text-base sm:text-lg leading-relaxed font-semibold">
+                  On July 20, 1969, <strong>Neil Armstrong</strong> took humanity's very first step on my dust! The 21.5 kg of Moon rocks they brought home helped scientists learn how the Earth and Moon were born—and Apollo space tech inspired everyday things you use today like <strong>cordless vacuums, memory foam, and phone cameras</strong>!
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-7 flex justify-end">
+              <button onclick="nextApolloStep()"
+                class="btn-playful px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+                Apollo Star Challenge #2 ⭐ →
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // STEP 3: INTERACTIVE MINI-QUIZ 2 (Simple Question about Neil Armstrong)
+      else if (apolloStepIndex === 3) {
+        container.innerHTML = `
+          <div class="bg-slate-900/90 border-2 border-amber-400 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md text-center">
+            <span class="px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs sm:text-sm font-extrabold uppercase">
+              ⭐ Apollo Star Question #2 • Quick Space Trivia
+            </span>
+
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+              Win Your Final Gold Star!
+            </h3>
+            <p class="text-slate-200 text-base sm:text-lg font-semibold max-w-lg mx-auto mb-6">
+              Who was the very first astronaut to step onto the Moon's surface?
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto mb-5">
+              <button onclick="checkQuiz2('Buzz Lightyear')"
+                class="q2-opt btn-playful p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-white font-display font-bold text-lg">
+                🚀 Buzz Lightyear
+              </button>
+              <button onclick="checkQuiz2('Neil Armstrong')"
+                class="q2-opt btn-playful p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-white font-display font-bold text-lg">
+                👨‍🚀 Neil Armstrong
+              </button>
+              <button onclick="checkQuiz2('Captain Marvel')"
+                class="q2-opt btn-playful p-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-white font-display font-bold text-lg">
+                ⚡ Captain Marvel
+              </button>
+            </div>
+
+            <div id="q2-feedback" class="min-h-[28px] text-base font-bold mb-4"></div>
+
+            <button id="q2-continue-btn" onclick="nextApolloStep()"
+              class="hidden btn-playful px-7 py-3 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 text-slate-950 font-extrabold text-base sm:text-lg shadow-lg">
+              Final Story Part →
+            </button>
+          </div>
+        `;
+      }
+
+      // STEP 4: WHY WAS APOLLO 11'S LUNAR MODULE ABANDONED? (Heavy Weight!)
+      else if (apolloStepIndex === 4) {
+        container.innerHTML = `
+          <div class="bg-slate-900/85 border-2 border-sky-400/50 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3.5 py-1 rounded-full bg-sky-500/20 border border-sky-400/50 text-sky-300 text-xs sm:text-sm font-bold">
+                🌕 Apollo 11 • Part 3 of 3
+              </span>
+              <span class="text-xs text-slate-400 font-bold">Why Was It Left Behind?</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="w-28 h-28 flex-shrink-0 flex items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 text-6xl">
+                ⚖️
+              </div>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-amber-300 mb-3">
+                  Why Was the Lunar Module Abandoned?
+                </h3>
+                <p class="text-slate-100 text-base sm:text-lg leading-relaxed font-semibold">
+                  To blast off from my surface and return to Earth, every single kilogram mattered! Because of the <strong>heavy weight</strong>, the Lunar Module <em>Eagle</em> had to leave its heavy landing legs behind on my surface—and once the astronauts rejoined their main spaceship, they had to let the upper cabin go too so they had enough fuel to get home. <strong>Abandoned in space, but never forgotten!</strong>
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-7 flex justify-center sm:justify-end">
+              <button onclick="showFinalCertificate()"
+                class="btn-playful px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-500 text-slate-950 font-extrabold text-lg shadow-[0_6px_0_#92400e]">
+                See My Space Rank! 🏆
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function fillQ1Letter(letter) {
+      playClickSound();
+      const input = document.getElementById('q1-letter-2');
+      if (input) input.value = letter;
+    }
+
+    function checkQuiz1() {
+      const input = document.getElementById('q1-letter-2');
+      const feedback = document.getElementById('q1-feedback');
+      const val = (input ? input.value : '').trim().toUpperCase();
+
+      if (val === 'O') {
+        if (!quiz1Solved) {
+          quiz1Solved = true;
+          starsEarned++;
+          updateStarHud();
+        }
+        playSuccessChime();
+        launchConfetti();
+        feedback.innerHTML = '<span class="text-emerald-400">🌟 Awesome! R-O-C-K! You earned a Gold Star!</span>';
+        document.getElementById('q1-check-btn').classList.add('hidden');
+        document.getElementById('q1-continue-btn').classList.remove('hidden');
+      } else {
+        playTone(220, 0.2, 'sawtooth', 0.12);
+        feedback.innerHTML = '<span class="text-amber-300">Almost! Try the letter <strong>O</strong> to spell R-O-C-K!</span>';
+      }
+    }
+
+    function checkQuiz2(choice) {
+      const feedback = document.getElementById('q2-feedback');
+      if (choice === 'Neil Armstrong') {
+        if (!quiz2Solved) {
+          quiz2Solved = true;
+          starsEarned++;
+          updateStarHud();
+        }
+        playSuccessChime();
+        launchConfetti();
+        feedback.innerHTML = '<span class="text-emerald-400">🌟 Woohoo! Neil Armstrong was first! You earned a Gold Star!</span>';
+        document.querySelectorAll('.q2-opt').forEach(btn => btn.disabled = true);
+        document.getElementById('q2-continue-btn').classList.remove('hidden');
+      } else {
+        playTone(220, 0.2, 'sawtooth', 0.12);
+        feedback.innerHTML = '<span class="text-amber-300">Not quite! Hint: His last name is <strong>Armstrong</strong>!</span>';
+      }
+    }
+
+    function nextApolloStep() {
+      playClickSound();
+      apolloStepIndex++;
+      renderApolloStep();
+    }
+
+    // -------------------------------------------------------------------
+    // 8. FINAL REWARD SCREEN & MOONWALKER TITLE (Screen 7)
+    // -------------------------------------------------------------------
+    function showFinalCertificate() {
+      playSuccessChime();
+      const starsVisual = document.getElementById('final-stars-visual');
+      const titleEl = document.getElementById('final-rank-title');
+      const msgEl = document.getElementById('final-rank-message');
+      const badgeCard = document.getElementById('moonwalker-badge-card');
+      const retryBtn = document.getElementById('retry-quizzes-btn');
+
+      if (starsEarned >= 2) {
+        launchConfetti();
+        starsVisual.textContent = '⭐'.repeat(starsEarned);
+        titleEl.innerHTML = 'Congratulations, <span class="text-amber-400">MOONWALKER!</span>';
+        msgEl.innerHTML = `You explored Mars with Spirit & Opportunity, launched Apollo 11 to the Moon, and collected <strong>${starsEarned} out of 4 Gold Stars</strong>! Even though these brave machines were left behind, their stories will never be forgotten!`;
+        badgeCard.classList.remove('hidden');
+        retryBtn.classList.add('hidden');
+      } else {
+        starsVisual.textContent = starsEarned === 1 ? '⭐☆☆☆' : '☆☆☆☆';
+        titleEl.innerHTML = 'Great Job, <span class="text-sky-300">Space Cadet!</span>';
+        msgEl.innerHTML = `You collected <strong>${starsEarned} out of 4 Stars</strong>! Collect at least <strong>2 Stars</strong> to unlock the official <strong>MOONWALKER</strong> title!`;
+        badgeCard.classList.add('hidden');
+        retryBtn.classList.remove('hidden');
+      }
+
+      showScreen('screen-7', true);
+    }
+
+    function retryAllQuizzes() {
+      playClickSound();
+      marsStepIndex = 2;
+      renderMarsStep();
+      showScreen('screen-3', true);
+    }
+
+    function resetWholeApp() {
+      playClickSound();
+      marsStepIndex = 0;
+      marsCompleted = false;
+      starsEarned = 0;
+      marsQuiz1Solved = false;
+      marsQuiz2Solved = false;
+      quiz1Solved = false;
+      quiz2Solved = false;
+      apolloStepIndex = 0;
+      document.getElementById('star-hud').classList.add('hidden');
+      document.getElementById('star-hud').classList.remove('flex');
+      document.getElementById('hub-hint-box').classList.add('hidden');
+      showScreen('screen-1', false);
+    }
+
+    // -------------------------------------------------------------------
+    // 9. CELEBRATORY CONFETTI HELPER
+    // -------------------------------------------------------------------
+    function launchConfetti() {
+      const colors = ['#FACC15', '#38BDF8', '#FB923C', '#4ADE80', '#F472B6'];
+      for (let i = 0; i < 36; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.backgroundColor = colors[i % colors.length];
+        piece.style.animationDelay = (Math.random() * 0.5) + 's';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3300);
+      }
+    }
+  </script>
+</body>
+</html>
